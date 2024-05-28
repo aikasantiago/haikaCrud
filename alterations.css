@@ -1,0 +1,13 @@
+li {
+    color: rgb(239 68 68);
+    margin: 0px;
+    padding: 0px;
+}
+
+#entrada {
+    min-height: 113px;
+}
+
+#tabelaEstoque{
+    margin: 170px 100px 0px;
+}
