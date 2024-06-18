@@ -4,6 +4,7 @@ require 'conexao.php';
 if (!isset($_SESSION['id'])) {
     header('location:formEntrar.php');
 }
+
 ?>
 
 <!DOCTYPE html>

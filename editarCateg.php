@@ -49,17 +49,17 @@ $table_categoria = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="mb-2">
                     <label id="nome_categoria" for="nome_categoria" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-indigo-300">Categoria</label>
-                    <select id="nome_categoria" name="nome_categoria" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-indigo-800 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-                        <?php
-                        $sql = "SELECT * FROM table_categoria;";
-                        $resultado = $conn->prepare($sql);
-                        $resultado->execute();
-                        $table_categoria = $resultado->fetchAll(PDO::FETCH_ASSOC);
-                        foreach ($table_categoria as $categoria) {
-                            echo "<option value=" . $categoria["id_categoria"] . ">" .  $categoria["nome_categoria"] . "</option>";
-                        }
-                        ?>
-                    </select>
+                    <select id="nome_categoria" name="nome_categoria" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-indigo-800 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
+                                <option selected="">Selecione a categoria</option>
+                                <option>Sofás</option>
+                                <option>Eletrônicos</option>
+                                <option>Eletrodomésticos</option>
+                                <option>Cama</option>
+                                <option>Guarda-roupas</option>
+                                <option>Armários</option>
+                                <option>Mesas</option>
+                                <option>Penteadeiras</option>
+                            </select>
 
                 </div>
 
