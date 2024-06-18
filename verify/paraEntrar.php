@@ -16,7 +16,8 @@ if(isset($_POST['submit'])){
         if($resultado->rowCount() > 0){
             $recebeDado = $resultado ->fetch();
             $_SESSION["id"] = $recebeDado["id"];
-            header('location:../inicio.php');
+            $_SESSION["usuario"] = $recebeDado["usuario"];
+            header('location:../index.php');
         } else {
             header('location:../formEntrar.php?error=error');
         } 
