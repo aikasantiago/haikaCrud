@@ -13,15 +13,15 @@ if (!isset($_SESSION['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Estoque de Móveis</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="alterations.css">
 </head>
 
-<body class="bg-indigo-950 rounded-lg">
+<body class="bg-indigo-950 rounded-lg h-screen flex flex-col">
     <nav class="relative bg-indigo-50 border-indigo-200 dark:bg-indigo-900">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-1 py-4 "> 
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-1 py-4"> 
             <div id="logo" class="">
                 <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="images/trabalhador-carregando-caixas.png" class="h-8" alt="Flowbite Logo" />
@@ -29,18 +29,19 @@ if (!isset($_SESSION['id'])) {
                 </a>
             </div>
             <div class="hidden md:flex md:items-center md:w-auto mx-auto" id="navbar-user">
-                <ul class="flex flex-col font-medium text-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-indigo-50 dark:bg-indigo-800 md:dark:bg-indigo-900">
+                <ul class="flex flex-col font-medium text-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-indigo-50 dark:bg-indigo-800 md:dark:bg-indigo-900 justify-center">
                     <li>
-                        <a href="index.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Home</a>
+                        <a href="index.php" class="block py-2 px-3 text-indigo-50 bg-indigo-700 rounded md:bg-transparent md:text-indigo-700 md:p-0 md:dark:text-indigo-400" aria-current="page">Home</a>
                     </li>
                     <li>
                         <a href="meuEstoque.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Meu estoque</a>
+
                     </li>
                     <li>
                         <a href="categorias.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Categorias</a>
                     </li>
                     <li>
-                        <a href="sobre.php" class="block py-2 px-3 text-indigo-50 bg-indigo-700 rounded md:bg-transparent md:text-indigo-700 md:p-0 md:dark:text-indigo-400" aria-current="page">Sobre</a>
+                        <a href="sobre.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Sobre</a>
                     </li>
                 </ul>
             </div>
@@ -58,23 +59,25 @@ if (!isset($_SESSION['id'])) {
             </div>
             <!-- Hamburger menu -->
             <div class="absolute right-0 mt-2 mr-4 top-full z-50 hidden w-48 text-base list-none bg-indigo-50 divide-y divide-indigo-100 rounded-lg shadow dark:bg-indigo-800 dark:divide-indigo-700" id="hamburger-menu">
-                <ul class="py-2">
-                    <li>
-                        <a href="index.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Home</a>
-                    </li>
-                    <li>
-                        <a href="meuEstoque.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Meu estoque</a>
-                    </li>
-                    <li>
-                        <a href="categorias.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Categorias</a>
-                    </li>
-                    <li>
-                        <a href="sobre.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Sobre</a>
-                    </li>
-                </ul>
+                <div class="">
+                    <ul class="py-2 ">
+                        <li>
+                            <a href="index.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Home</a>
+                        </li>
+                        <li>
+                            <a href="meuEstoque.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Meu estoque</a>
+                        </li>
+                        <li>
+                            <a href="categorias.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Categorias</a>
+                        </li>
+                        <li>
+                            <a href="sobre.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Sobre</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <!-- Dropdown menu -->
-            <div class="absolute right-0 mt-2 mr-4 top-full z-50 hidden w-48 text-base list-none bg-indigo-50 divide-y divide-indigo-100 rounded-lg shadow dark:bg-indigo-800 dark:divide-indigo-700" id="user-dropdown">
+            <div class="absolute right-0 mt-2 mr-4  top-full z-50 hidden w-48 text-base list-none bg-indigo-50 divide-y divide-indigo-100 rounded-lg shadow dark:bg-indigo-800 dark:divide-indigo-700" id="user-dropdown">
                 <div class="px-4 py-3">
                     <span class="block text-sm text-indigo-900 dark:text-indigo-50" id="usuario">
                         <?php echo $_SESSION["usuario"]; ?>
@@ -90,13 +93,11 @@ if (!isset($_SESSION['id'])) {
         </div>
     </nav>
 
-    <div class="mx-32 mt-24">
-        <h2 class="text-4xl font-bold dark:text-indigo-50">O que é esse sistema?</h2>
-        <p class="my-3 text-lg text-indigo-100">Esse sistema é um Controle de estoque de móveis e é uma ferramenta de software utilizada para gerenciar e monitorar o inventário de produtos, neste caso, móveis, em uma empresa.</p>
-        <p class="mb-2 text-lg font-normal text-indigo-500 dark:text-indigo-100">Ele ajuda a garantir que os níveis de estoque sejam mantidos de forma eficiente, evitando tanto a falta de produtos quanto o excesso de mercadorias armazenadas. </p>
-        <p class="mb-4 text-lg font-normal text-indigo-500 dark:text-indigo-100">Aqui você pode consultar o estoque da sua loja, cadastrar produtos, fazer atualizações nos produtos e removê-los. </p>
-        <a href="index.php" class="mb-5 inline-flex items-center text-lg text-indigo-600 dark:text-indigo-600 hover:underline">
-            Voltar para a página incial
+    <div id="texto" class="flex flex-col items-center justify-center flex-1 text-center mb-10">
+        <h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-indigo-900 md:text-5xl lg:text-5xl dark:text-indigo-100">Olá, <?php echo $_SESSION["usuario"]; ?>! Seja bem-vindo(a) ao CDEM! </h1>
+        <p class="mb-6 text-lg font-normal text-indigo-500 lg:text-xl sm:px-16 xl:px-48 dark:text-indigo-600">Clicando no botão abaixo você terá acesso ao seu estoque.</p>
+        <a href="meuEstoque.php" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-indigo-50 bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-900">
+            Consultar estoque
             <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
             </svg>

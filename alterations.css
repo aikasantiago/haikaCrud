@@ -5,9 +5,10 @@ li {
 }
 
 #entrada {
-    min-height: 113px;
+    min-height: 114px;
 }
 
 #tabelaEstoque{
-    margin: 170px 100px 0px;
+    margin: 170px 50px 0px;
+    
 }
