@@ -22,7 +22,7 @@ if (!isset($_SESSION['id'])) {
 
 <body class="bg-indigo-950 rounded-lg h-screen flex flex-col">
     <nav class="relative bg-indigo-50 border-indigo-200 dark:bg-indigo-900">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-1 py-4"> 
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-1 py-4">
             <div id="logo" class="">
                 <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="images/trabalhador-carregando-caixas.png" class="h-8" alt="Flowbite Logo" />
@@ -32,7 +32,7 @@ if (!isset($_SESSION['id'])) {
             <div class="hidden md:flex md:items-center md:w-auto mx-auto" id="navbar-user">
                 <ul class="flex flex-col font-medium text-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-indigo-50 dark:bg-indigo-800 md:dark:bg-indigo-900 justify-center">
                     <li>
-                        <a href="index.php" class="block py-2 px-3 text-indigo-50 bg-indigo-700 rounded md:bg-transparent md:text-indigo-700 md:p-0 md:dark:text-indigo-400" aria-current="page">Home</a>
+                        <a href="index.php" class="block py-2 px-3 text-indigo-50 bg-indigo-700 rounded md:bg-transparent md:text-indigo-700 md:p-0 md:dark:text-indigo-400" aria-current="page">Início</a>
                     </li>
                     <li>
                         <a href="meuEstoque.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Meu estoque</a>
@@ -63,7 +63,7 @@ if (!isset($_SESSION['id'])) {
                 <div class="">
                     <ul class="py-2 ">
                         <li>
-                            <a href="index.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Home</a>
+                            <a href="index.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Início</a>
                         </li>
                         <li>
                             <a href="meuEstoque.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Meu estoque</a>
@@ -104,6 +104,65 @@ if (!isset($_SESSION['id'])) {
             </svg>
         </a>
     </div>
+
+
+
+    <table class="w-full text-lg text-left rtl:text-right text-indigo-200 dark:text-indigo-200">
+        <thead class="text-indigo-100 dark:bg-indigo-900">
+            <tr>
+                <th class="px-6 py-3">
+                    Categoria
+                </th>
+                <th class="px-6 py-3">
+                    Total de Produtos
+                </th>
+
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php
+            $sql = "select * from relatorio where contIDcat = ( select count(c.id_categoria) as contIDcat from table_estoque as p join table_categoria as c on p.id_categoria = c.id_categoria group by c.id_categoria order by contIDcat desc limit 1);";
+            $resultado =$conn->prepare($sql);
+            $resultado->execute();
+            $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($table_estoque as $relatorio) {
+                echo '<tr class="bg-indigo-50 font-normal border-b dark:bg-indigo-950 dark:border-indigo-900">';
+                echo '<td class="px-6 py-3">' . $relatorio['categoria'] . '</td>';                                                                                      
+                echo '<td class="px-6 py-3">' . $relatorio['contIDcat'] . '</td>';
+                echo '<td class="px-6 py-3">
+                            </td>';
+                echo '</tr>';
+            }
+            ?>
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <script>
         const userMenuButton = document.getElementById('user-menu-button');

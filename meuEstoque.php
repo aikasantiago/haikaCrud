@@ -6,7 +6,7 @@ if (!isset($_SESSION['id'])) {
     header('location:formEntrar.php');
     exit();
 }
-$sql = "SELECT * FROM table_estoque";
+$sql = "SELECT p.id_produto, p.nome_produto, p.valor, p.quantidade, c.nome_categoria as categoria FROM table_estoque as p JOIN table_categoria as c ON p.id_categoria = c.id_categoria";
 $resultado = $conn->prepare($sql);
 $resultado->execute();
 $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -41,7 +41,7 @@ $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
             <div class=" hidden md:flex md:items-center md:w-auto mx-auto" id="navbar-user">
                 <ul class="flex flex-col font-medium text-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-indigo-50 dark:bg-indigo-800 md:dark:bg-indigo-900">
                     <li>
-                        <a href="index.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Home</a>
+                        <a href="index.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Início</a>
                     </li>
                     <li>
                         <a href="meuEstoque.php" class="block py-2 px-3 text-indigo-50 bg-indigo-700 rounded md:bg-transparent md:text-indigo-700 md:p-0 md:dark:text-indigo-400" aria-current="page">Meu estoque</a>
@@ -70,7 +70,7 @@ $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
             <div class="absolute right-0 mt-2 mr-4  top-full z-50 hidden w-48 text-base list-none bg-indigo-50 divide-y divide-indigo-100 rounded-lg shadow dark:bg-indigo-800 dark:divide-indigo-700" id="hamburger-menu">
                 <ul class="py-2">
                     <li>
-                        <a href="index.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Home</a>
+                        <a href="index.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Início</a>
                     </li>
                     <li>
                         <a href="meuEstoque.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Meu estoque
@@ -102,12 +102,61 @@ $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
     </nav>
 
 
-
-
-
-
     <!-- TABELA -->
     <div id="tabelaEstoque" class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
+
+        <?php if (isset($_GET['sucesso']) && $_GET['sucesso'] == 'ok') { ?>
+            <div id="mensagemSucesso" class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-green-200 dark:text-green-800 relative" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Deu certo!</span> Produto cadastrado com sucesso!
+                </div>
+                <a href="meuEstoque.php" class="absolute top-0 right-0 px-3 py-1 text-gray-500 hover:text-gray-800 focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span class="sr-only">Fechar</span>
+                </a>
+            </div>
+        <?php } ?>
+        <?php if (isset($_GET['deletado']) && $_GET['deletado'] == 'ok') { ?>
+            <div id="mensagemSucesso" class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-green-200 dark:text-green-800 relative" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Deu certo!</span> Produto deletado com sucesso!
+                </div>
+                <a href="meuEstoque.php" class="absolute top-0 right-0 px-3 py-1 text-gray-500 hover:text-gray-800 focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span class="sr-only">Fechar</span>
+                </a>
+            </div>
+        <?php } ?>
+        <?php if (isset($_GET['editado']) && $_GET['editado'] == 'ok') { ?>
+            <div id="mensagemSucesso" class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-green-200 dark:text-green-800 relative" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Deu certo!</span> Produto editado com sucesso!
+                </div>
+                <a href="meuEstoque.php" class="absolute top-0 right-0 px-3 py-1 text-gray-500 hover:text-gray-800 focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span class="sr-only">Fechar</span>
+                </a>
+            </div>
+        <?php } ?>
+
 
 
         <?php
@@ -229,7 +278,7 @@ $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="mb-4">
                             <label id="quantidade" for="quantidade" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-indigo-300">Quantidade</label>
-                            <input type="number" id="quantidade" name="quantidade" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-indigo-800 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" placeholder="Ex: 9"  required>
+                            <input type="number" id="quantidade" name="quantidade" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-indigo-800 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" placeholder="Ex: 9" required>
                         </div>
                         <div class="mb-4">
                             <label id="valor" for="valor" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-indigo-300">Valor (em Reais)</label>
@@ -237,19 +286,19 @@ $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="mb-4">
                             <label id="categoria" for="categoria" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-indigo-300">Categoria</label>
-                            <select id="categoria" name="categoria" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-indigo-800 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-                                <option selected="">Selecione a categoria</option>
+                            <select id="categoria" name="categoria" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-indigo-800 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" required>
+                                <option value="">Selecione a categoria</option>
                                 <?php
-                                    $sql = "SELECT * FROM table_categoria;";
-                                    $resultado = $conn->prepare($sql);
-                                    $resultado->execute();
-                                    $table_categoria = $resultado->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach ($table_categoria as $categoria) {
-                                        echo "<option value=". $categoria["id_categoria"] . ">" .  $categoria["nome_categoria"] . "</option>";
-                                    }
+                                $sql = "SELECT * FROM table_categoria;";
+                                $resultado = $conn->prepare($sql);
+                                $resultado->execute();
+                                $table_categoria = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($table_categoria as $categoria) {
+                                    echo "<option value=" . $categoria["id_categoria"] . ">" .  $categoria["nome_categoria"] . "</option>";
+                                }
                                 ?>
                             </select>
-                            
+
                         </div>
 
                         <div class="flex justify-end">
@@ -281,7 +330,7 @@ $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 });
 
 
-                
+
                 document.addEventListener("DOMContentLoaded", function() {
                     const modal = document.getElementById("crud-modal");
                     const openModalButton = document.querySelector("[data-modal-target='crud-modal']");

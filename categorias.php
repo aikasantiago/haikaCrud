@@ -36,7 +36,7 @@ $table_categoria = $resultado->fetchAll(PDO::FETCH_ASSOC);
             <div class="hidden md:flex md:items-center md:w-auto mx-auto" id="navbar-user">
                 <ul class="flex flex-col font-medium text-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-indigo-50 dark:bg-indigo-800 md:dark:bg-indigo-900">
                     <li>
-                        <a href="index.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Home</a>
+                        <a href="index.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Início</a>
                     </li>
                     <li>
                         <a href="meuEstoque.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Meu estoque</a>
@@ -65,7 +65,7 @@ $table_categoria = $resultado->fetchAll(PDO::FETCH_ASSOC);
             <div class="absolute right-0 mt-2 mr-4  top-full z-50 hidden w-48 text-base list-none bg-indigo-50 divide-y divide-indigo-100 rounded-lg shadow dark:bg-indigo-800 dark:divide-indigo-700" id="hamburger-menu">
                 <ul class="py-2">
                     <li>
-                        <a href="index.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Home</a>
+                        <a href="index.php" class="block py-2 px-3 text-indigo-900 rounded hover:bg-indigo-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 dark:text-indigo-50 md:dark:hover:text-indigo-400 dark:hover:bg-indigo-700 dark:hover:text-indigo-50 md:dark:hover:bg-transparent">Início</a>
                     </li>
                     <li>
                         <a href="meuEstoque.php" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-700 dark:text-indigo-200 dark:hover:text-indigo-50">Meu estoque</a>
@@ -99,6 +99,59 @@ $table_categoria = $resultado->fetchAll(PDO::FETCH_ASSOC);
     <!-- TABELA -->
     <div id="tabelaEstoque" class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
 
+        <?php if (isset($_GET['deletado']) && $_GET['deletado'] == 'ok') { ?>
+            <div id="mensagemSucesso" class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-green-200 dark:text-green-800 relative" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Deu certo!</span> Categoria deletada com sucesso!
+                </div>
+                <a href="categorias.php" class="absolute top-0 right-0 px-3 py-1 text-gray-500 hover:text-gray-800 focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span class="sr-only">Fechar</span>
+                </a>
+            </div>
+        <?php } ?>
+        <?php if (isset($_GET['editado']) && $_GET['editado'] == 'ok') { ?>
+            <div id="mensagemSucesso" class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-green-200 dark:text-green-800 relative" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Deu certo!</span> Categoria editada com sucesso!
+                </div>
+                <a href="categorias.php" class="absolute top-0 right-0 px-3 py-1 text-gray-500 hover:text-gray-800 focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span class="sr-only">Fechar</span>
+                </a>
+            </div>
+        <?php } ?>
+
+        <?php if (isset($_GET['sucesso']) && $_GET['sucesso'] == 'ok') { ?>
+            <div id="mensagemSucesso" class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-green-200 dark:text-green-800 relative" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Deu certo!</span> Categoria cadastrada com sucesso!
+                </div>
+                <a href="categorias.php" class="absolute top-0 right-0 px-3 py-1 text-gray-500 hover:text-gray-800 focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span class="sr-only">Fechar</span>
+                </a>
+            </div>
+        <?php } ?>
+
 
         <?php
         if (count($table_categoria) > 0) {
@@ -121,7 +174,7 @@ $table_categoria = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         <th class="px-6 py-3">
                             Nome da Categoria
                         </th>
-                        
+
                         <th class="px-6 py-3">
                             Ações
                         </th>
@@ -203,17 +256,7 @@ $table_categoria = $resultado->fetchAll(PDO::FETCH_ASSOC);
                     <form id="crud-form" method="POST" action="verify/cadastraCateg.php">
                         <div class="mb-4">
                             <label id="nome_categoria" for="nome_categoria" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-indigo-300">Nome da Categoria</label>
-                            <select id="nome_categoria" name="nome_categoria" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-indigo-800 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-                                <option selected="">Selecione a categoria</option>
-                                <option>Sofás</option>
-                                <option>Eletrônicos</option>
-                                <option>Eletrodomésticos</option>
-                                <option>Cama</option>
-                                <option>Guarda-roupas</option>
-                                <option>Armários</option>
-                                <option>Mesas</option>
-                                <option>Penteadeiras</option>
-                            </select>
+                            <input type="text" value="" name="nome_categoria" id="nome_categoria" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-indigo-50 dark:focus:ring-indigo-500 dark:focus:border-indigo-500" placeholder="Digite a categoria" required="">
 
                         </div>
 
