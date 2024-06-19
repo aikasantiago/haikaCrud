@@ -107,37 +107,42 @@ if (!isset($_SESSION['id'])) {
 
 
 
-    <table class="w-full text-lg text-left rtl:text-right text-indigo-200 dark:text-indigo-200">
-        <thead class="text-indigo-100 dark:bg-indigo-900">
-            <tr>
-                <th class="px-6 py-3">
-                    Categoria
-                </th>
-                <th class="px-6 py-3">
-                    Total de Produtos
-                </th>
 
 
-            </tr>
-        </thead>
 
-        <tbody>
-            <?php
-            $sql = "select * from relatorio where contIDcat = ( select count(c.id_categoria) as contIDcat from table_estoque as p join table_categoria as c on p.id_categoria = c.id_categoria group by c.id_categoria order by contIDcat desc limit 1);";
-            $resultado =$conn->prepare($sql);
-            $resultado->execute();
-            $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($table_estoque as $relatorio) {
-                echo '<tr class="bg-indigo-50 font-normal border-b dark:bg-indigo-950 dark:border-indigo-900">';
-                echo '<td class="px-6 py-3">' . $relatorio['categoria'] . '</td>';                                                                                      
-                echo '<td class="px-6 py-3">' . $relatorio['contIDcat'] . '</td>';
-                echo '<td class="px-6 py-3">
-                            </td>';
-                echo '</tr>';
-            }
-            ?>
-        </tbody>
-    </table>
+
+    <div id="relatorio" class="flex flex-col items-center justify-center mt-10 mb-8">
+        <h2 class="text-3xl font-bold mb-4 text-center text-indigo-200 dark:text-indigo-200">Relatório</h2>
+        <table class="w-full md:w-4/5 lg:w-3/5 xl:w-2/5 text-lg text-left rtl:text-right text-indigo-200 dark:text-indigo-200">
+            <thead class="text-indigo-100 dark:bg-indigo-900">
+                <tr>
+                    <th class="px-6 py-3">
+                        Categoria
+                    </th>
+                    <th class="px-6 py-3">
+                        Total de Produtos
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php
+                    $sql = "select * from relatorio where contIDcat = ( select count(c.id_categoria) as contIDcat from table_estoque as p join table_categoria as c on p.id_categoria = c.id_categoria group by c.id_categoria order by contIDcat desc limit 1);";
+                    $resultado = $conn->prepare($sql);
+                    $resultado->execute();
+                    $table_estoque = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($table_estoque as $relatorio) {
+                        echo '<tr class="bg-indigo-50 font-normal border-b dark:bg-indigo-950 dark:border-indigo-900">';
+                        echo '<td class="px-6 py-3">' . $relatorio['categoria'] . '</td>';
+                        echo '<td class="px-6 py-3">' . $relatorio['contIDcat'] . '</td>';
+                        echo '</tr>';
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+
 
 
 
